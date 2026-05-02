@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddImageItem extends StatefulWidget {
-  const AddImageItem({super.key});
-
+  const AddImageItem({super.key, required this.onImageSelected});
+final ValueChanged<File?> onImageSelected;
   @override
   State<AddImageItem> createState() => AddImageItemState();
 }
@@ -13,6 +13,7 @@ class AddImageItem extends StatefulWidget {
 class AddImageItemState extends State<AddImageItem> {
   File? _selectedImage; // المتغير الذي سيخزن الصورة
   final ImagePicker _picker = ImagePicker();
+  
   // دالة لاختيار الصورة
   Future<void> _pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(
