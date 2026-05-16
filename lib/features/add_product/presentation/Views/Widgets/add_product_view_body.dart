@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fruithup_dashboard/core/Functions/build_snackBar.dart';
 import 'package:fruithup_dashboard/core/widgets/custom_button.dart';
 import 'package:fruithup_dashboard/core/widgets/custom_text_form_field.dart';
+import 'package:fruithup_dashboard/features/add_product/domian/entities/add_product_entity.dart';
 import 'package:fruithup_dashboard/features/add_product/presentation/Views/Widgets/add_image_item.dart';
 import 'package:fruithup_dashboard/features/add_product/presentation/Views/Widgets/is_fetured_product.dart';
 
@@ -20,6 +21,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   late String name, code, description;
   late double price;
   late File? image;
+  late bool isFeatured;
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
@@ -61,7 +63,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 },
               ),
               const SizedBox(height: 16),
-              IsFeturedProduct(onChanged: (value) {}),
+              IsFeturedProduct(
+                onChanged: (value) {
+                  isFeatured = value;
+                },
+              ),
               const SizedBox(height: 16),
               AddImageItem(
                 key: _imageKey,
@@ -80,6 +86,14 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       return;
                     }
                     _formKey.currentState!.save();
+                    AddProductEntity newProduct = AddProductEntity(
+                      isFeatured: isFeatured,
+                      name: name,
+                      code: code,
+                      price: price,
+                      image: image!,
+                      descreption: description,
+                    );
                     // Your code here after validation passes
                   } else {
                     setState(() {
